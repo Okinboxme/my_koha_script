@@ -1,5 +1,5 @@
 # koha.
-Scripts for helping on the KOHA Instalation
+Scripts for helping on the KOHA Installation
 
 To install KOHA on a clean linux Server just run the following commands:
 
