@@ -2,16 +2,16 @@
 
 #Install script KOHA
 sudo wget -q -O- https://debian.koha-community.org/koha/gpg.asc | sudo apt-key add -
-echo 'deb http://debian.koha-community.org/koha stable main' | sudo tee /etc/apt/sources.list.d/koha.list
+echo 'deb http://debian.koha-community.org/koha 22.05 main' | sudo tee /etc/apt/sources.list.d/koha.list
 sudo apt-get update
 sudo apt-get update && apt upgrade -yq
-#echo 'deb http://debian.koha-community.org/koha 19.05 main' | sudo tee /etc/apt/sources.list.d/koha.list
+#echo 'deb http://debian.koha-community.org/koha 22.05 main' | sudo tee /etc/apt/sources.list.d/koha.list
 #sudo apt-get update
 sudo dpkg-reconfigure locales;
 #dependecy install
 sudo apt-get install -y libapache2-mpm-itk
 sudo apt-get install -y memcached
-sudo apt-get -y install mariadb-server
+sudo apt-get -y install mysql-server
 sudo apt-get install -y koha-common
 sudo apt-get install -y multipath-tools
 sudo systemctl restart memcached
