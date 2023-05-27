@@ -19,7 +19,7 @@ sudo wget -q -O- https://debian.koha-community.org/koha/gpg.asc | sudo apt-key a
 echo 'deb http://debian.koha-community.org/koha stable main' | sudo tee /etc/apt/sources.list.d/koha.list
 sudo apt-get update
 sudo apt-get update && apt upgrade -yq
-echo 'deb http://debian.koha-community.org/koha 19.05 main' | sudo tee /etc/apt/sources.list.d/koha.list
+echo 'deb http://debian.koha-community.org/koha stable main' | sudo tee /etc/apt/sources.list.d/koha.list
 sudo apt-get update
 sudo dpkg-reconfigure locales;
 #dependecy install
