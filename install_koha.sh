@@ -29,6 +29,13 @@ sudo apt-get -y install mariadb-server
 sudo apt-get install -y koha-common
 sudo apt-get install -y multipath-tools
 sudo systemctl restart memcached
+sudo apt install -y koha-elasticsearch openjdk-11-jdk-headless
+sudo apt-get install -y apt-transport-https
+sudo wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-6.x.list
+sudo apt-get update && sudo apt-get install -y elasticsearch
+sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -y analysis-icu
+sudo service elasticsearch restart
 #koha basic config
 sudo a2enmod deflate
 sudo a2dismod mpm_event
