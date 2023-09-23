@@ -18,5 +18,21 @@ apt-get update
 apt-get -y install sudo wget gnupg2
 wget -qO - https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor -o /usr/share/keyrings/koha-keyring.gpg
 apt-get update -yq
+echo 'deb http://debian.koha-community.org/koha oldstable main' | sudo tee /etc/apt/sources.list.d/koha.list
+sudo apt-get update
+
+sudo apt-get install koha-common
+
+sudo apt-get install mariadb-server
+
+#Set up Apache
+sudo a2enmod rewrite 
+sudo a2enmod cgi 
+sudo service apache2 restart
+#sudo koha-create --create-db libraryname
+sudo koha-create --create-db mainlibrary
+
+
+
 #Show login data
 sh auth.sh
