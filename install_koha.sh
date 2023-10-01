@@ -17,16 +17,14 @@ sudo koha-create --create-db mainlibrary
 sudo rm /var/www/html/index.html
 sudo cp config/ports.conf /etc/apache2/
 
-#Setup plack
-sudo a2enmod headers proxy_http 
-#then:
-sudo koha-plack --enable mainlibrary
+
 sudo koha-plack --start mainlibrary
 sudo service apache2 restart
 
 #Apache config
-sudo a2enmod rewrite 
-sudo a2enmod cgi 
+sudo a2enmod rewrite
+sudo a2enmod cgi
+sudo service apache2 restart
 
 
 #restart services
