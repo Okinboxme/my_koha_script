@@ -55,9 +55,14 @@ sudo service apache2 restart
 # Restart Memcached service
 sudo service memcached restart
 
+# Extract the MySQL password from the Koha config file
+MYSQL_PASSWORD=$(grep -oP '(?<=<mysql_database_password>)[^<]+' /etc/koha/sites/$KOHA_INSTANCE_NAME/koha-conf.xml)
+
 # Inform user to access Koha Staff Client
 echo "Installation Complete!"
 echo "You can now access Koha Staff Client at http://localhost:$INTRAPORT"
-echo "Login with the MySQL username and password from /etc/koha/sites/$KOHA_INSTANCE_NAME/koha-conf.xml"
+echo "Login with the MySQL username and password from the Koha config file"
+echo "MySQL password: $MYSQL_PASSWORD"
+echo "Login with the username koha_library and password: $MYSQL_PASSWORD"
 
 # End of script
