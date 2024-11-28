@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Load configuration from the koha_install.config file
+source ./koha_install.config
+
 # Update system packages
 sudo apt update
 sudo apt upgrade -y
@@ -17,8 +20,8 @@ sudo apt update
 # Install MariaDB server
 sudo apt install -y mariadb-server
 
-# Set the MariaDB root password (replace 'newpass' with your desired password)
-sudo mysqladmin -u root password 'newpass'
+# Set the MariaDB root password from the configuration file
+sudo mysqladmin -u root password "$MYSQL_ROOT_PASSWORD"
 
 # Install Koha
 sudo apt install -y koha-common
@@ -26,20 +29,19 @@ sudo apt install -y koha-common
 # Configure Koha settings (change port number)
 sudo mousepad /etc/koha/koha-sites.conf
 
-# Edit the INTRAPORT to 8080 (staff client port)
-echo 'Please change INTRAPORT="8080" in /etc/koha/koha-sites.conf manually'
+# Set INTRAPORT value from config
+sed -i "s/^INTRAPORT=.*/INTRAPORT=\"$INTRAPORT\"/" /etc/koha/koha-sites.conf
 
 # Enable Apache modules
 sudo a2enmod rewrite
 sudo a2enmod cgi
 sudo service apache2 restart
 
-# Create a Koha instance (replace "library" with your desired instance name)
-sudo koha-create --create-db library
+# Create a Koha instance (using the instance name from the config)
+sudo koha-create --create-db "$KOHA_INSTANCE_NAME"
 
-# Open Apache ports for Koha (8080 for staff client)
-sudo mousepad /etc/apache2/ports.conf
-echo 'Please add Listen 8080 under "Listen 80" in /etc/apache2/ports.conf manually'
+# Configure Apache to listen on additional ports from config
+echo "Listen $LISTEN_PORTS" | sudo tee -a /etc/apache2/ports.conf
 
 # Restart Apache
 sudo service apache2 restart
@@ -47,7 +49,7 @@ sudo service apache2 restart
 # Enable Apache modules and sites for Koha
 sudo a2dissite 000-default
 sudo a2enmod deflate
-sudo a2ensite library
+sudo a2ensite "$KOHA_INSTANCE_NAME"
 sudo service apache2 restart
 
 # Restart Memcached service
@@ -55,7 +57,7 @@ sudo service memcached restart
 
 # Inform user to access Koha Staff Client
 echo "Installation Complete!"
-echo "You can now access Koha Staff Client at http://localhost:8080"
-echo "Login with the MySQL username and password from /etc/koha/sites/library/koha-conf.xml"
+echo "You can now access Koha Staff Client at http://localhost:$INTRAPORT"
+echo "Login with the MySQL username and password from /etc/koha/sites/$KOHA_INSTANCE_NAME/koha-conf.xml"
 
 # End of script
