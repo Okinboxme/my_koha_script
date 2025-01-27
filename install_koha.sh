@@ -12,7 +12,7 @@ sudo apt -y install mousepad
 
 # Add Koha community repository
 sudo sh -c 'wget -qO - https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor -o /usr/share/keyrings/koha-keyring.gpg'
-sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/koha-keyring.gpg] https://debian.koha-community.org/koha oldstable main" >> /etc/apt/sources.list.d/koha.list'
+sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/koha-keyring.gpg] https://debian.koha-community.org/koha stable main" >> /etc/apt/sources.list.d/koha.list'
 
 # Update package list to include Koha repository
 sudo apt update
