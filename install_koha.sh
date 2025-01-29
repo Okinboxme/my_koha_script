@@ -8,7 +8,7 @@ sudo apt update
 sudo apt upgrade -y
 
 # Install Mousepad text editor
-sudo apt -y install mousepad
+sudo apt -y install nano
 
 # Add Koha community repository
 sudo sh -c 'wget -qO - https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor -o /usr/share/keyrings/koha-keyring.gpg'
